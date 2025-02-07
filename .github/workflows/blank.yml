@@ -39,3 +39,27 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+  - name: Download a Build Artifact
+  uses: actions/download-artifact@v4.1.8
+  with:
+    # Name of the artifact to download. If unspecified, all artifacts for the run are downloaded.
+    name: # optional
+    # Destination path. Supports basic tilde expansion. Defaults to $GITHUB_WORKSPACE
+    path: # optional
+test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up C++ environment
+      uses: actions/setup-cpp@v1
+      with:
+        compiler: gcc
+
+    - name: Install dependencies
+      run: sudo apt-get install -y make
+
+    - name: Run tests
+      run: make test
+
